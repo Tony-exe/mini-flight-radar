@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <string.h>
+#include <curl/curl.h>
+#include <cjson/cJSON.h>
 #include "flight_info.h"
 #include "ui.h"
 
@@ -15,8 +17,15 @@ void *fetch_data(void* arg){
 
 int main(int argc, char argv)
 {
+	CURLcode result = curl_global_init(CURL_GLOBAL_ALL);
+	if(result) {
+    	fprintf(stderr, "curl_global_init failed\n");
+    	return 1;
+	}
+
 	Flight *to_track = malloc(sizeof(Flight));
 	
+
 
 	opening();
 	fgets(to_track->flight_num, 20, stdin);

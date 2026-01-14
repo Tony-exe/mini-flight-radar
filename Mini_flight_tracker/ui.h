@@ -4,6 +4,9 @@
 
 void opening(){
 	/* PLANE ASCII */
+
+    system("cls");
+
 	printf("\n\n                                       |\n"
        "                                       |\n"
        "                                       |\n"
