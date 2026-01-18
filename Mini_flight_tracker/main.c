@@ -5,13 +5,19 @@
 #include <string.h>
 #include <curl/curl.h>
 #include <cjson/cJSON.h>
+//CUSTOM HEADERS
 #include "flight_info.h"
 #include "ui.h"
+#include "api.h"
 
 pthread_mutex_t lock_data = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t data_updated = PTHREAD_COND_INITIALIZER;
 
-void *fetch_data(void* arg){
+void ui_print(char *response, Flight_info *dep, Flight_info *arr){
+	dep = json_parse(dep, response);
+	arr = json_parse(arr, response);
+	print_data_header();
+	print_data(dep, arr);
 
 }
 
@@ -24,25 +30,22 @@ int main(int argc, char argv)
 	}
 
 	Flight *to_track = malloc(sizeof(Flight));
-	
-
+	Flight_info *departure = malloc(sizeof(Flight_info));
+	Flight_info *arrival = malloc(sizeof(Flight_info));
+	departure->base = arrival->base = to_track;
+	departure->fase = 0;
+	arrival->fase = 1;
 
 	opening();
 	fgets(to_track->flight_call, 20, stdin);
-	printf("String: %s", to_track->flight_call);
+	to_track->flight_call[strcspn(to_track->flight_call, "\n")] = 0;
+
 	get_url(to_track, to_track->flight_call);
-	printf("\nAPI URL: %s", to_track->url);
+	char response [4096]; //4 KB max
+	http_get(to_track, response);
 
+	ui_print(response, departure, arrival);
 
-
-	
-	pthread_t worker_t;
-	pthread_create(&worker_t, NULL, fetch_data, to_track);
-	
-	while(1){
-		pthread_cond_wait(&data_updated, &lock_data);
-	}
-	
-	pthread_join(worker_t,NULL);
+	//printf("\n\n%s", response);
 
 }
