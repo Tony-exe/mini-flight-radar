@@ -28,8 +28,13 @@ int main(int argc, char argv)
 
 
 	opening();
-	fgets(to_track->flight_num, 20, stdin);
-	printf("String: %s", to_track->flight_num);
+	fgets(to_track->flight_call, 20, stdin);
+	printf("String: %s", to_track->flight_call);
+	get_url(to_track, to_track->flight_call);
+	printf("\nAPI URL: %s", to_track->url);
+
+
+
 	
 	pthread_t worker_t;
 	pthread_create(&worker_t, NULL, fetch_data, to_track);

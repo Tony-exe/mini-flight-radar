@@ -19,5 +19,5 @@ void opening(){
        "                          '--'   OO   O|O   OO   '--'\n\n");
 	printf("/******************************************************************************/\n");
 	printf("         ************** WELCOME TO MINI FLIGHT TRACKER! ***************\n"
-			"Please type the flight number you wanna track: ");
+			"Please type the flight callsign you wanna track (IS NOT THE SAME AS THE ONE YOU FINT ON THE TICKET): ");
 }

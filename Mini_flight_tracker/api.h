@@ -4,9 +4,9 @@
 #include <cjson/cJSON.h>
 #include "flight_info.h"
 
-void *http_get(){
+void *http_get(char *url){
 	CURL *curl = curl_easy_init();
-	Flight *response = malloc(sizeof(Flight));
+	Flight *response = (Flight *)malloc(sizeof(Flight));
 
 	curl_easy_setopt(curl,CURLOPT_URL, "url");
 }
