@@ -4,9 +4,6 @@
 #include <cjson/cJSON.h>
 #include "flight_info.h"
 
-/************ -- API -- ************ */
-/* d83f99e238aa5ec4f777cc8fd06b8f1b */
-/********************************* */
 
 void *http_get(Flight *flight, char *http){
 	CURL *curl = curl_easy_init();
