@@ -46,6 +46,5 @@ int main(int argc, char argv)
 
 	ui_print(response, departure, arrival);
 
-	//printf("\n\n%s", response);
 
 }
